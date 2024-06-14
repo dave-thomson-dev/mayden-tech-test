@@ -10,6 +10,7 @@ describe('shoppingListReducer', () => {
       title: 'Bananas',
       quantity: 2,
       price: 0.20,
+      isComplete: false
     };
 
     const action = {
@@ -37,9 +38,9 @@ describe('shoppingListReducer', () => {
 
   it('should delete an item from the shopping list', () => {
     const initialState = [
-      { id: 1, title: 'Apples', quantity: 3, price: 1.2 },
-      { id: 2, title: 'Bananas', quantity: 2, price: 0.5 },
-      { id: 3, title: 'Carrots', quantity: 5, price: 0.7 },
+      { id: 1, title: 'Apples', quantity: 3, price: 1.2, isComplete: false },
+      { id: 2, title: 'Bananas', quantity: 2, price: 0.5, isComplete: false }, 
+      { id: 3, title: 'Carrots', quantity: 5, price: 0.7, isComplete: false },
     ];
 
     const action = {
@@ -48,8 +49,8 @@ describe('shoppingListReducer', () => {
     };
 
     const expectedState = [
-      { id: 1, title: 'Apples', quantity: 3, price: 1.2 },
-      { id: 3, title: 'Carrots', quantity: 5, price: 0.7 },
+      { id: 1, title: 'Apples', quantity: 3, price: 1.2, isComplete: false },
+      { id: 3, title: 'Carrots', quantity: 5, price: 0.7, isComplete: false },
     ];
 
     const newState = shoppingListReducer(initialState, action);
@@ -59,9 +60,9 @@ describe('shoppingListReducer', () => {
 
   it('should not modify the state if the item to delete does not exist', () => {
     const initialState = [
-      { id: 1, title: 'Apples', quantity: 3, price: 1.2 },
-      { id: 2, title: 'Bananas', quantity: 2, price: 0.5 },
-      { id: 3, title: 'Carrots', quantity: 5, price: 0.7 },
+      { id: 1, title: 'Apples', quantity: 3, price: 1.2, isComplete: false },
+      { id: 2, title: 'Bananas', quantity: 2, price: 0.5, isComplete: false },
+      { id: 3, title: 'Carrots', quantity: 5, price: 0.7, isComplete: false },
     ];
 
     const action = {
@@ -74,5 +75,44 @@ describe('shoppingListReducer', () => {
     const newState = shoppingListReducer(initialState, action);
 
     expect(newState).toEqual(expectedState);
+  });  
+
+  describe('shoppingListReducer', () => {
+    it('should toggle the isComplete property of the specified item', () => {
+      const initialState = [
+        { id: 1, title: 'Apples', quantity: 2, price: 1.5, isComplete: false },
+        { id: 2, title: 'Oranges', quantity: 1, price: 2.0, isComplete: false },
+      ];
+  
+      const action = {
+        type: 'toggle_item',
+        id: 1,
+        isComplete: true,
+      };
+  
+      const updatedState = shoppingListReducer(initialState, action);
+  
+      expect(updatedState).toEqual([
+        { id: 1, title: 'Apples', quantity: 2, price: 1.5, isComplete: true },
+        { id: 2, title: 'Oranges', quantity: 1, price: 2.0, isComplete: false },
+      ]);
+    });
+  
+    it('should not change the state if the item id is not found', () => {
+      const initialState = [
+        { id: 1, title: 'Apples', quantity: 2, price: 1.5, isComplete: false },
+        { id: 2, title: 'Oranges', quantity: 1, price: 2.0, isComplete: false },
+      ];
+  
+      const action = {
+        type: 'toggle_item',
+        id: 3,
+        isComplete: true,
+      };
+  
+      const updatedState = shoppingListReducer(initialState, action);
+  
+      expect(updatedState).toEqual(initialState);
+    });
   });  
 });

@@ -3,6 +3,7 @@ export type ShoppingItemType = {
   title: string;
   quantity: number;
   price: number;
+  isComplete: boolean;
 }
 
 export type NewShoppingItemType = Omit<ShoppingItemType, "id">

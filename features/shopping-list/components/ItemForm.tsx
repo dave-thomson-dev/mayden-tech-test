@@ -29,7 +29,12 @@ export default function ItemForm({ items, addItem }: ItemFormProps) {
       return;
     }
 
-    addItem({title: item, quantity: parseFloat(quantity), price: parseFloat(price)})
+    addItem({
+      title: item, 
+      quantity: parseFloat(quantity), 
+      price: parseFloat(price), 
+      isComplete: false
+    })
 
     setItem('')
     setQuantity('')

@@ -1,6 +1,6 @@
 'use client'
 import { useReducer } from 'react'
-import { ShoppingListType, NewShoppingItemType } from '../../../types'
+import { ShoppingListType, NewShoppingItemType, ShoppingItemType } from '../../../types'
 import ItemForm from './ItemForm'
 import CurrencyFormat from '../../ui/CurrencyFormat'
 
@@ -20,7 +20,15 @@ export default function ShoppingList({ title, shoppingList }: ShoppingListProps)
     });
   }
 
-  function handleDeleteItem(item: NewShoppingItemType) {
+  function handleToggleItem(id: string, isComplete: boolean) {
+    dispatch({
+      type: 'toggle_item',
+      id,
+      isComplete
+    });
+  }
+
+  function handleDeleteItem(item: ShoppingItemType) {
     dispatch({
       type: 'delete_item',
       item
@@ -36,12 +44,16 @@ export default function ShoppingList({ title, shoppingList }: ShoppingListProps)
         <h1 role="heading" className="text-xl mb-4">{title}</h1>
         <ul>
           {state.length === 0 ? (<li>Please add an item to your shopping list</li>) : (
-
             state.map((item) => (
               <li className="flex justify-between" key={item.id}>
-                <span><input type="checkbox" className="mr-2" />{item.title} x{item.quantity}</span>
+                <span className={item.isCompleted ? 'line-through' : ''}>
+                  <input type="checkbox" className="mr-2" value={item.isComplete} onChange={(e) => {
+                    handleToggleItem(item.id, e.target.checked)
+                  }} />
+                    {item.title} x{item.quantity}
+                </span>
                 <span>
-                  <CurrencyFormat value={item.price} />
+                  <CurrencyFormat value={item.price * item.quantity} />
                   <a onClick={() => handleDeleteItem(item)} className="ml-2">delete</a>
                 </span>
               </li>
@@ -65,6 +77,13 @@ export function shoppingListReducer(state: ShoppingListType, action: any) {
         ...state,
         newItem
       ]
+    }
+    case 'toggle_item': {
+      return state.map((item) =>
+        item.id === action.id
+          ? { ...item, isComplete: action.isComplete }
+          : item,
+      )
     }
     case 'delete_item': {
       return state.filter(item => item.id !== action.item.id)
