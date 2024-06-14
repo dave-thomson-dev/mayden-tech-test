@@ -50,7 +50,7 @@ Recruitment Coding Challenge
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[screenshot]
+![alt text](https://github.com/dave-thomson-dev/mayden-tech-test/blob/feature/shopping-list/images/screenshot.png?raw=true)
 
 A simple shopping list application.
 
