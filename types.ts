@@ -10,3 +10,4 @@ export type NewShoppingItemType = Omit<ShoppingItemType, "id">
 
 export type ShoppingListType = ShoppingItemType[]
 
+

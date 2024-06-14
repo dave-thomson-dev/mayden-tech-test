@@ -39,9 +39,9 @@ export default function ShoppingList({ title, shoppingList }: ShoppingListProps)
     <>
       <ItemForm items={shoppingList} addItem={handleAddItem} />
 
-      {/* Shopping List */}
       <div className="sm:w-1/2 p-4 mt-8 mx-auto sm:border sm:rounded-md">
         <h1 role="heading" className="text-xl mb-4">{title}</h1>
+        {/* Shopping List */}
         <ul>
           {state.length === 0 ? (<li>Please add an item to your shopping list</li>) : (
             state.map((item) => (
