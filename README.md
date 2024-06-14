@@ -50,9 +50,10 @@ Recruitment Coding Challenge
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![alt text](https://github.com/dave-thomson-dev/mayden-tech-test/blob/feature/shopping-list/images/screenshot.png?raw=true)
+As a healthcare company Mayden has a keen eye on healthy eating and this app is intended to be an easy way to keep track of what needed, what needs to be
+purchased and to keep spending within the budget constraints.
 
-A simple shopping list application.
+![alt text](https://github.com/dave-thomson-dev/mayden-tech-test/blob/feature/shopping-list/images/screenshot.png?raw=true)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
