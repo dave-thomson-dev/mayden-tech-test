@@ -43,7 +43,7 @@ export default function ItemForm({ items, addItem }: ItemFormProps) {
   }
 
   return (
-    <div className="sm:w-1/2 p-4 mt-8 mx-auto sm:border">
+    <div className="sm:w-1/2 p-4 mt-8 mx-auto sm:border sm:rounded-md">
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4">
           <input type="text" name="title" placeholder="Item" value={item} onChange={(e) => setItem(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline p-2" />

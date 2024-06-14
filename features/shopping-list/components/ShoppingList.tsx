@@ -40,13 +40,13 @@ export default function ShoppingList({ title, shoppingList }: ShoppingListProps)
       <ItemForm items={shoppingList} addItem={handleAddItem} />
 
       {/* Shopping List */}
-      <div className="sm:w-1/2 p-4 mt-8 mx-auto sm:border">
+      <div className="sm:w-1/2 p-4 mt-8 mx-auto sm:border sm:rounded-md">
         <h1 role="heading" className="text-xl mb-4">{title}</h1>
         <ul>
           {state.length === 0 ? (<li>Please add an item to your shopping list</li>) : (
             state.map((item) => (
               <li className="flex justify-between" key={item.id}>
-                <span className={item.isCompleted ? 'line-through' : ''}>
+                <span className={item.isComplete ? 'line-through' : ''}>
                   <input type="checkbox" className="mr-2" value={item.isComplete} onChange={(e) => {
                     handleToggleItem(item.id, e.target.checked)
                   }} />
@@ -54,7 +54,7 @@ export default function ShoppingList({ title, shoppingList }: ShoppingListProps)
                 </span>
                 <span>
                   <CurrencyFormat value={item.price * item.quantity} />
-                  <a onClick={() => handleDeleteItem(item)} className="ml-2">delete</a>
+                  <a onClick={() => handleDeleteItem(item)} className="ml-2 underline text-blue-600 hover:text-blue-800">delete</a>
                 </span>
               </li>
             )
