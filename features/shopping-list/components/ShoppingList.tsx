@@ -20,6 +20,13 @@ export default function ShoppingList({ title, shoppingList }: ShoppingListProps)
     });
   }
 
+  function handleDeleteItem(item: NewShoppingItemType) {
+    dispatch({
+      type: 'delete_item',
+      item
+    });
+  }
+
   return (
     <>
       <ItemForm items={shoppingList} addItem={handleAddItem} />
@@ -28,12 +35,18 @@ export default function ShoppingList({ title, shoppingList }: ShoppingListProps)
       <div className="sm:w-1/2 p-4 mt-8 mx-auto sm:border">
         <h1 role="heading" className="text-xl mb-4">{title}</h1>
         <ul>
-          {state.map(({ id, title, quantity, price }) => (
-            <li className="flex justify-between" key={id}>
-              <span><input type="checkbox" className="mr-2" />{title} x{quantity}</span>
-              <CurrencyFormat value={price} />
-            </li>
-          ))}
+          {state.length === 0 ? (<li>Please add an item to your shopping list</li>) : (
+
+            state.map((item) => (
+              <li className="flex justify-between" key={item.id}>
+                <span><input type="checkbox" className="mr-2" />{item.title} x{item.quantity}</span>
+                <span>
+                  <CurrencyFormat value={item.price} />
+                  <a onClick={() => handleDeleteItem(item)} className="ml-2">delete</a>
+                </span>
+              </li>
+            )
+            ))}
         </ul>
       </div>
     </>
@@ -52,6 +65,9 @@ export function shoppingListReducer(state: ShoppingListType, action: any) {
         ...state,
         newItem
       ]
+    }
+    case 'delete_item': {
+      return state.filter(item => item.id !== action.item.id)
     }
   }
   throw Error('Unknown action: ' + action.type);
